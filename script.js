@@ -185,3 +185,21 @@ function gotoDate() {
   }
   alert("Invalid Date");
 }
+
+/* Scraper */
+document.querySelector(".add-event").addEventListener("click", async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/run-scraper", {
+      method: "POST",
+    });
+
+    const data = await response.json();
+    if (data.error) {
+      alert("Error al ejecutar el script: " + data.error);
+    } else {
+      alert("Script ejecutado con éxito: " + data.output);
+    }
+  } catch (error) {
+    alert("Error en la comunicación con el servidor: " + error.message);
+  }
+});
