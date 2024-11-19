@@ -2,7 +2,7 @@ const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
   prev = document.querySelector(".prev"),
-  next = document.querySelector(".next");
+  next = document.querySelector(".next"),
   todayBtn = document.querySelector(".today-btn"),
   gotoBtn = document.querySelector(".goto-btn"),
   dateInput = document.querySelector(".date-input"),
@@ -15,18 +15,18 @@ let month = today.getMonth();
 let year = today.getFullYear();
 
 const months = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 //add days
@@ -93,7 +93,6 @@ next.addEventListener("click", nextMonth);
 
 //function to add active on day
 function addListner() {
-  console.log("Entre");
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
@@ -189,8 +188,15 @@ function gotoDate() {
 /* Scraper */
 document.querySelector(".add-event").addEventListener("click", async () => {
   try {
-    const response = await fetch("http://127.0.0.1:5000/run-scraper", {
+    const day = new Date(year, month, activeDay);
+    const formattedDate = day.toISOString().split("T")[0]; // Formato yyyy-mm-dd
+    console.log(formattedDate);
+    const response = await fetch("https://scraper-opqmh5421-aldos-projects-1844f6ee.vercel.app/run-scraper", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Indicamos que enviamos JSON
+      },
+      body: JSON.stringify({ date: formattedDate }), // Enviamos la fecha en el cuerpo
     });
 
     const data = await response.json();
