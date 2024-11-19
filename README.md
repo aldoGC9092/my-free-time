@@ -3,8 +3,9 @@ An easy way to acknowledge the Guadalajara's theater scene. Select a date and go
 
 Free time on Guadalajara?
 Pick a date on our calendar and see the theater entertaiment options for you.
-![image](https://github.com/user-attachments/assets/d3c14562-d832-4672-b9ac-2e7427d1d3f6)
+![image](https://github.com/user-attachments/assets/08195651-a642-490e-b62f-4b7324c7385a)
+
 
 visit the web site:
- -- deployed link should be here --
+https://aldogc9092.github.io/my-free-time/
  
