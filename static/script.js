@@ -204,8 +204,11 @@ document.querySelector(".add-event").addEventListener("click", async () => {
     if (data.error) {
       alert("Error al ejecutar el script: " + data.error);
     } else {
-      // Llamar a la función para mostrar los resultados
-      renderResults(data); // Asegúrate de que 'data.output' tenga un formato JSON adecuado
+      // Guardar resultados en localStorage
+      localStorage.setItem("scraperResults", JSON.stringify(data));
+      
+      // Redirigir a la página de resultados
+      window.location.href = "/static/cartelera.html";
     }
   } catch (error) {
     alert("Error en la comunicación con el servidor: " + error.message);

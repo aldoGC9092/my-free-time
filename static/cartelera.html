@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartelera</title>
+  <link rel="stylesheet" href="/static/style.css"> <!-- Opcional: un archivo CSS externo -->
+</head>
+<body>
+  <header>
+    <h1>Cartelera de Eventos</h1>
+  </header>
+
+  <main>
+    <div id="results" class="card-container">
+      <!-- Aquí se renderizan las tarjetas -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Tu Compañía</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("results");
+      container.innerHTML = ""; // Limpiar resultados anteriores
+
+      // Recuperar resultados de localStorage
+      const data = JSON.parse(localStorage.getItem("scraperResults"));
+
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>No hay eventos disponibles.</p>";
+        return;
+      }
+
+      // Renderizar tarjetas
+      data.forEach(({ link, sinopsis, teatro, titulo }) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <h3>${titulo || "Sin título"}</h3>
+          <p><strong>Teatro:</strong> ${teatro || "N/A"}</p>
+          <p>${sinopsis || "No disponible"}</p>
+          <a href="${link}" target="_blank">Ver más</a>
+        `;
+
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
