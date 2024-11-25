@@ -191,6 +191,7 @@ document.querySelector(".add-event").addEventListener("click", async () => {
     const day = new Date(year, month, activeDay);
     const formattedDate = day.toISOString().split("T")[0]; // Formato yyyy-mm-dd
     console.log(formattedDate);
+
     const response = await fetch("/run-scraper", {
       method: "POST",
       headers: {
@@ -203,9 +204,40 @@ document.querySelector(".add-event").addEventListener("click", async () => {
     if (data.error) {
       alert("Error al ejecutar el script: " + data.error);
     } else {
-      alert("Script ejecutado con éxito: " + data.output);
+      // Llamar a la función para mostrar los resultados
+      renderResults(data); // Asegúrate de que 'data.output' tenga un formato JSON adecuado
     }
   } catch (error) {
     alert("Error en la comunicación con el servidor: " + error.message);
   }
 });
+
+function renderResults(data) {
+  const container = document.getElementById("results");
+  container.innerHTML = ""; // Limpiar resultados anteriores
+  console.log(data);
+
+  // Verificar si data está vacío o no contiene eventos
+  if (!data || data.length === 0) {
+    container.innerHTML = "<p>No hay eventos disponibles.</p>";
+    return;
+  }
+
+  // Iterar sobre los eventos directamente en el array data
+  data.forEach((eventInfo) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    // Asignar los valores directamente
+    const { link, sinopsis, teatro, titulo } = eventInfo;
+
+    card.innerHTML = `
+      <h3>${titulo || "Sin título"}</h3>
+      <p><strong>Teatro:</strong> ${teatro || "N/A"}</p>
+      <p>${sinopsis || "No disponible"}</p>
+      <a href="${link}" target="_blank">Ver más</a>
+    `;
+
+    container.appendChild(card);
+  });
+}

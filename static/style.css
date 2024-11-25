@@ -358,3 +358,34 @@ body {
   }
 }
 
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.card h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  color: black;
+}
+.card p {
+  margin: 5px 0;
+  color: #555;
+}
+.card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+.card a:hover {
+  text-decoration: underline;
+}
