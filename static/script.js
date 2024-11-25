@@ -191,7 +191,7 @@ document.querySelector(".add-event").addEventListener("click", async () => {
     const day = new Date(year, month, activeDay);
     const formattedDate = day.toISOString().split("T")[0]; // Formato yyyy-mm-dd
     console.log(formattedDate);
-    const response = await fetch("http://127.0.0.1:5000/run-scraper", {
+    const response = await fetch("/run-scraper", {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Indicamos que enviamos JSON

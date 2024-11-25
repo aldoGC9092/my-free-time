@@ -39,9 +39,6 @@ if not titulos:
     print("No hay eventos disponibles")
 
 else:
-    #for titulo in titulos:
-    #    print(titulo.text)
-
     # Buscar enlaces
     enlaces = soup.find_all('a', href=True)
     for enlace in enlaces:
@@ -53,6 +50,7 @@ else:
         time.sleep(3)
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
+        titulo = soup.find('h2', class_='title')
         sinopsis = soup.find('p', class_='event-section-content')
         teatro = soup.find('h3', class_='theater')
         if not sinopsis:
@@ -61,6 +59,7 @@ else:
             print('https://voyalteatro.com' + enlace)
             print(sinopsis.text)
             print(teatro.text)
+            print(titulo.text)
             time.sleep(2)
 
 driver.quit()

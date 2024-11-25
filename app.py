@@ -1,9 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import subprocess
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)  # Esto habilita CORS para todas las rutas
+
+# Ruta para servir el archivo index.html cuando se acceda a la raíz
+@app.route('/')
+def serve_index():
+    return app.send_static_file('index.html')
 
 @app.route('/run-scraper', methods=['POST'])
 def run_scraper():
