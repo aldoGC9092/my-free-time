@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cartelera</title>
   <link rel="stylesheet" href="/static/style.css"> <!-- Opcional: un archivo CSS externo -->
 </head>
+
 <body>
-  <header>
-    <h1>Cartelera de Eventos</h1>
+  <header class="hero">
+    <div class="container">
+      <a class="logo" href="/">
+        <h1 class="logo__nombre no-margin centrar-texto">Teatro <span class="logo__bold">Jalisco</span></h1>
+      </a>
+      <p>Descubre la magia del teatro en Guadalajara y Zapopan</p>
+    </div>
   </header>
 
-  <main>
-    <div id="results" class="card-container">
-      <!-- Aquí se renderizan las tarjetas -->
-    </div>
+  <main class="container">
+    <section class="theaters">
+      <h2>Eventos</h2>
+      <div class="theater-grid">
+        <div id="results"> <!-- Eventos --> </div>
+      </div>
+    </section>
+    <a href="/static/calendar.html" class="btn">Seleccionar otra fecha</a>
   </main>
 
   <footer>
-    <p>&copy; 2024 Tu Compañía</p>
+    <div class="container">
+      <p>&copy; 2024 Teatro Jalisco. Todos los derechos reservados.</p>
+    </div>
   </footer>
 
   <script>
@@ -40,10 +53,12 @@
         card.classList.add("card");
 
         card.innerHTML = `
-          <h3>${titulo || "Sin título"}</h3>
-          <p><strong>Teatro:</strong> ${teatro || "N/A"}</p>
-          <p>${sinopsis || "No disponible"}</p>
-          <a href="${link}" target="_blank">Ver más</a>
+          <div class="theater-card margin-10">
+            <h3>${titulo || "Sin título"}</h3>
+            <p class="location"><strong>Teatro:</strong> ${teatro || "N/A"}</p>
+            <p>${sinopsis || "No disponible"}</p>
+            <a href="${link}" target="_blank">Ver más</a>
+          </div> 
         `;
 
         container.appendChild(card);
@@ -51,4 +66,5 @@
     });
   </script>
 </body>
+
 </html>

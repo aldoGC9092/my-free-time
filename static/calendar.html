@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teatro Jalisco</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header class="hero">
+        <div class="container">
+            <a class="logo" href="/">
+                <h1 class="logo__nombre no-margin centrar-texto">Teatro <span class="logo__bold">Jalisco</span></h1>
+            </a>
+            <p>Selecciona una fecha y descubre lo que el teatro jalisciense tiene para ofrecer!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="contenedor-calendar">
+            <div class="left">
+                <div class="calendar">
+                    <div class="month">
+                        <i class="fas fa-angle-left prev"></i>
+                        <div class="date">december 2015</div>
+                        <i class="fas fa-angle-right next"></i>
+                    </div> <!-- .month -->
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div> <!-- weekdays -->
+                    <div class="days"></div>
+                    <div class="goto-today">
+                        <div class="goto">
+                            <input type="text" placeholder="mm/yyyy" class="date-input" />
+                            <button class="goto-btn">Go</button>
+                        </div>
+                        <button class="today-btn">Today</button>
+                    </div> <!-- goto-today -->
+                </div> <!-- calendar -->
+            </div> <!-- left -->
+
+            <div class="right">
+                <div class="today-date">
+                    <div class="event-day">wed</div>
+                    <div class="event-date">18 November 2024</div>
+                </div> <!-- today-date -->
+
+                <div class="event-button">
+                    <button class="add-event">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button> <!-- add-event -->
+                </div>
+            </div> <!-- right -->
+        </div> <!-- contenedor-calendar -->
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Teatro Jalisco. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
