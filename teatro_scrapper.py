@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import Select
 from bs4 import BeautifulSoup
 import time
 import sys
+import json
 
 if len(sys.argv) < 2:
     print("Error: No se proporcionó una fecha. Usa el formato yyyy-mm-dd.")
@@ -15,6 +16,7 @@ date = sys.argv[1]
 
 # Arreglo para almacenar los links
 enlaces_guardados = []
+eventos = []
 
 # Configurar Selenium para usar Chrome
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -36,12 +38,9 @@ soup = BeautifulSoup(html, 'html.parser')
 # Buscar eventos
 titulos = soup.find_all('p', class_='event-name')
 if not titulos:
-    print("No hay eventos disponibles")
+    print("No hay eventos disponibles. Hola")
 
 else:
-    #for titulo in titulos:
-    #    print(titulo.text)
-
     # Buscar enlaces
     enlaces = soup.find_all('a', href=True)
     for enlace in enlaces:
@@ -50,17 +49,22 @@ else:
 
     for enlace in enlaces_guardados:
         driver.get('https://voyalteatro.com' + enlace)
-        time.sleep(3)
+        time.sleep(5)
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
+        titulo = soup.find('h2', class_='title')
         sinopsis = soup.find('p', class_='event-section-content')
         teatro = soup.find('h3', class_='theater')
         if not sinopsis:
             print('Boletos agotados')
         else:
-            print('https://voyalteatro.com' + enlace)
-            print(sinopsis.text)
-            print(teatro.text)
+            eventos.append({
+            "titulo": titulo.text if titulo else "Sin título",
+            "sinopsis": sinopsis.text if sinopsis else "No disponible",
+            "teatro": teatro.text if teatro else "No especificado",
+            "link": f"https://voyalteatro.com{enlace}"
+            })
             time.sleep(2)
 
+print(json.dumps(eventos))
 driver.quit()

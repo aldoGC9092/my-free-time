@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartelera</title>
+  <link rel="stylesheet" href="/static/style.css"> <!-- Opcional: un archivo CSS externo -->
+</head>
+
+<body>
+  <header class="hero">
+    <div class="container">
+      <a class="logo" href="/">
+        <h1 class="logo__nombre no-margin centrar-texto">Teatro <span class="logo__bold">Jalisco</span></h1>
+      </a>
+      <p>Descubre la magia del teatro en Guadalajara y Zapopan</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="theaters">
+      <h2>Eventos</h2>
+      <div class="theater-grid">
+        <div id="results"> <!-- Eventos --> </div>
+      </div>
+    </section>
+    <a href="/static/calendar.html" class="btn">Seleccionar otra fecha</a>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Teatro Jalisco. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("results");
+      container.innerHTML = ""; // Limpiar resultados anteriores
+
+      // Recuperar resultados de localStorage
+      const data = JSON.parse(localStorage.getItem("scraperResults"));
+
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>No hay eventos disponibles.</p>";
+        return;
+      }
+
+      // Renderizar tarjetas
+      data.forEach(({ link, sinopsis, teatro, titulo }) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+          <div class="theater-card margin-10">
+            <h3>${titulo || "Sin título"}</h3>
+            <p class="location"><strong>Teatro:</strong> ${teatro || "N/A"}</p>
+            <p>${sinopsis || "No disponible"}</p>
+            <a href="${link}" target="_blank">Ver más</a>
+          </div> 
+        `;
+
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+
+</html>
