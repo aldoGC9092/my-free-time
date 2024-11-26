@@ -186,12 +186,23 @@ function gotoDate() {
 }
 
 /* Scraper */
-document.querySelector(".add-event").addEventListener("click", async () => {
+document.querySelector(".add-event").addEventListener("click", async (event) => {
+  const button = event.currentTarget; // Obtén el botón
+  const icon = button.querySelector("i"); // Obtén el ícono dentro del botón
+
+  // Cambia el ícono a un spinner animado
+  icon.classList.remove("fa-arrow-right");
+  icon.classList.add("fa-spinner", "fa-spin");
+
+  // Deshabilita el botón para evitar múltiples clics
+  button.disabled = true;
+
   try {
     const day = new Date(year, month, activeDay);
     const formattedDate = day.toISOString().split("T")[0]; // Formato yyyy-mm-dd
     console.log(formattedDate);
 
+    // Realiza la solicitud al servidor
     const response = await fetch("/run-scraper", {
       method: "POST",
       headers: {
@@ -200,18 +211,27 @@ document.querySelector(".add-event").addEventListener("click", async () => {
       body: JSON.stringify({ date: formattedDate }), // Enviamos la fecha en el cuerpo
     });
 
+    // Verifica si la respuesta es JSON válida
     const data = await response.json();
+
     if (data.error) {
       alert("Error al ejecutar el script: " + data.error);
     } else {
       // Guardar resultados en localStorage
       localStorage.setItem("scraperResults", JSON.stringify(data));
-      
+
       // Redirigir a la página de resultados
       window.location.href = "/static/cartelera.html";
     }
   } catch (error) {
     alert("Error en la comunicación con el servidor: " + error.message);
+  } finally {
+    // Restablece el ícono del botón
+    icon.classList.remove("fa-spinner", "fa-spin");
+    icon.classList.add("fa-arrow-right");
+
+    // Habilita el botón nuevamente
+    button.disabled = false;
   }
 });
 
